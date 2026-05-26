@@ -54,8 +54,8 @@ export const projects = [
       "A responsive website for a business into selling and shipping goods.",
     image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=500&fit=crop",
     tags: ["React", "Local Storage", "CSS Grid"],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://caravan-chain.vercel.app/",
+    githubUrl: "https://github.com/Albertjr009/Portfolio.git",
     featured: true,
   },
   {
@@ -65,7 +65,7 @@ export const projects = [
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=500&fit=crop",
     tags: ["React", "API Integration", "SEO"],
     liveUrl: "https://alberttjnr.vercel.app/",
-    githubUrl: "#",
+    githubUrl: "https://github.com/Albertjr009/caravan-chain.git",
     featured: false,
   },
   
