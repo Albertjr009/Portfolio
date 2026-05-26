@@ -61,6 +61,7 @@ export default function Hero() {
           </a>
           <a
             href={personalInfo.resumeUrl}
+            download
             className="flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium text-gray-600 transition-colors hover:text-emerald-600 dark:text-gray-400 dark:hover:text-emerald-400"
           >
             <Download size={16} />

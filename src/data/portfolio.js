@@ -6,7 +6,7 @@ export const personalInfo = {
   email: "otooalbert463k@gmail.com",
   location: "Available for remote & on-site roles",
   availability: "Open to opportunities",
-  resumeUrl: "#",
+  resumeUrl: "/Albert-Jnr-CV.pdf",
   stats: [
     { label: "Years Experience", value: "5+" },
     { label: "Projects Delivered", value: "20+" },
