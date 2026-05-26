@@ -33,8 +33,14 @@ export default function Contact() {
     setStatus(null)
     setSending(true)
 
+    const templateParams = {
+      from_name: formState.name,
+      reply_to: formState.email,
+      message: formState.message,
+    }
+
     try {
-      await send(SERVICE_ID, TEMPLATE_ID, formState, PUBLIC_KEY)
+      await send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
       setSubmitted(true)
       setStatus("success")
       setFormState({ name: "", email: "", message: "" })
