@@ -64,7 +64,7 @@ export const projects = [
       "Headless portfolio template with dynamic content, SEO optimization, and sub-second load times on mobile networks.",
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=500&fit=crop",
     tags: ["React", "API Integration", "SEO"],
-    liveUrl: "#",
+    liveUrl: "https://https://alberttjnr.vercel.app/",
     githubUrl: "#",
     featured: false,
   },

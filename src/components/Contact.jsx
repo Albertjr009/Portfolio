@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { send } from "@emailjs/browser"
 import { Mail, MapPin, Send } from "lucide-react"
 import { GitHubIcon, LinkedInIcon, TwitterIcon } from "./SocialIcons"
 import { personalInfo, socialLinks } from "../data/portfolio"
@@ -20,12 +21,33 @@ export default function Contact() {
     message: "",
   })
   const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState(null)
+  const [sending, setSending] = useState(false)
 
-  const handleSubmit = (e) => {
+  const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "your_service_id"
+  const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "your_template_id"
+  const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "your_public_key"
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
-    setFormState({ name: "", email: "", message: "" })
-    setTimeout(() => setSubmitted(false), 4000)
+    setStatus(null)
+    setSending(true)
+
+    try {
+      await send(SERVICE_ID, TEMPLATE_ID, formState, PUBLIC_KEY)
+      setSubmitted(true)
+      setStatus("success")
+      setFormState({ name: "", email: "", message: "" })
+    } catch (error) {
+      setStatus("error")
+      console.error("Contact form submission error:", error)
+    } finally {
+      setSending(false)
+      setTimeout(() => {
+        setSubmitted(false)
+        setStatus(null)
+      }, 4000)
+    }
   }
 
   return (
@@ -142,11 +164,20 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 py-3.5 text-sm font-semibold text-gray-950 transition-all hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/25 sm:w-auto sm:px-8"
+              disabled={sending}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 py-3.5 text-sm font-semibold text-gray-950 transition-all hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/25 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:px-8"
             >
               <Send size={16} />
-              {submitted ? "Message Sent!" : "Send Message"}
+              {sending ? "Sending..." : submitted ? "Message Sent!" : "Send Message"}
             </button>
+            {status === "success" && (
+              <p className="mt-4 text-sm text-emerald-600">Thanks — your message is on its way.</p>
+            )}
+            {status === "error" && (
+              <p className="mt-4 text-sm text-rose-600">
+                Something went wrong. Please try again or email me directly at {personalInfo.email}.
+              </p>
+            )}
           </form>
         </div>
       </div>
