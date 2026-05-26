@@ -9,8 +9,8 @@ export const personalInfo = {
   resumeUrl: "/Albert-Jnr-CV.pdf",
   stats: [
     { label: "Years Experience", value: "5+" },
-    { label: "Projects Delivered", value: "20+" },
-    { label: "Technologies", value: "15+" },
+    { label: "Projects Delivered", value: "15+" },
+    { label: "Technologies", value: "5+" },
   ],
 }
 
