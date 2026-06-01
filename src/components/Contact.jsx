@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { send } from "@emailjs/browser"
 import { Mail, MapPin, Send } from "lucide-react"
 import { GitHubIcon, LinkedInIcon, TwitterIcon } from "./SocialIcons"
 import { personalInfo, socialLinks } from "../data/portfolio"
@@ -24,23 +23,40 @@ export default function Contact() {
   const [status, setStatus] = useState(null)
   const [sending, setSending] = useState(false)
 
-  const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "your_service_id"
-  const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "your_template_id"
-  const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "your_public_key"
+  const formspreeEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setStatus(null)
+
+    if (!formspreeEndpoint) {
+      setStatus("missing-config")
+      return
+    }
+
     setSending(true)
 
-    const templateParams = {
-      from_name: formState.name,
-      reply_to: formState.email,
+    const payload = {
+      name: formState.name,
+      email: formState.email,
       message: formState.message,
+      _subject: `New portfolio message from ${formState.name}`,
     }
 
     try {
-      await send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY)
+      const response = await fetch(formspreeEndpoint, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+
+      if (!response.ok) {
+        throw new Error("Formspree rejected the submission")
+      }
+
       setSubmitted(true)
       setStatus("success")
       setFormState({ name: "", email: "", message: "" })
@@ -123,6 +139,7 @@ export default function Contact() {
                 </label>
                 <input
                   id="name"
+                  name="name"
                   type="text"
                   placeholder="Your name"
                   value={formState.name}
@@ -139,6 +156,7 @@ export default function Contact() {
                 </label>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="you@company.com"
                   value={formState.email}
@@ -157,6 +175,7 @@ export default function Contact() {
               </label>
               <textarea
                 id="message"
+                name="message"
                 rows={5}
                 placeholder="Tell me about the role or project..."
                 value={formState.message}
@@ -182,6 +201,11 @@ export default function Contact() {
             {status === "error" && (
               <p className="mt-4 text-sm text-rose-600">
                 Something went wrong. Please try again or email me directly at {personalInfo.email}.
+              </p>
+            )}
+            {status === "missing-config" && (
+              <p className="mt-4 text-sm text-rose-600">
+                Formspree is not configured yet. Add your Formspree endpoint to the site settings.
               </p>
             )}
           </form>
