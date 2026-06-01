@@ -36,14 +36,17 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a
-          href="#"
-          onClick={(event) => scrollToSection(event, "#")}
-          className="font-display text-lg font-bold tracking-tight text-gray-900 dark:text-white"
+        <button
+          type="button"
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: "smooth" })
+            setIsOpen(false)
+          }}
+          className="font-display text-lg font-bold tracking-tight text-gray-900 transition-colors hover:text-emerald-600 dark:text-white dark:hover:text-emerald-400"
         >
           {personalInfo.name.split(" ")[0]}
           <span className="text-emerald-600 dark:text-emerald-400">.</span>
-        </a>
+        </button>
 
         <ul className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (

@@ -44,15 +44,17 @@ function ProjectCard({ project, large = false }) {
             <ExternalLink size={14} />
             Live Demo
           </a>
-          <a
-            href={project.githubUrl}
-            className="flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-            target="_self"
-            rel="noopener noreferrer"
-          >
-            <GitHubIcon size={14} />
-            Source Code
-          </a>
+          {project.githubUrl && project.githubUrl !== "#" && (
+            <a
+              href={project.githubUrl}
+              className="flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              target="_self"
+              rel="noopener noreferrer"
+            >
+              <GitHubIcon size={14} />
+              Source Code
+            </a>
+          )}
         </div>
       </div>
     </article>
