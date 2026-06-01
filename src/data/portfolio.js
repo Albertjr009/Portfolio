@@ -44,7 +44,7 @@ export const projects = [
       "A responsive website for a business into shipping and logistics services.",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop",
     tags: ["React", "Tailwind CSS", "Chart.js"],
-    liveUrl: "#",
+    liveUrl: "/",
     githubUrl: "#",
     featured: true,
   },
