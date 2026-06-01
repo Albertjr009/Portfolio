@@ -38,7 +38,7 @@ function ProjectCard({ project, large = false }) {
           <a
             href={project.liveUrl}
             className="flex items-center gap-1.5 text-sm font-medium text-emerald-600 transition-colors hover:text-emerald-500 dark:text-emerald-400 dark:hover:text-emerald-300"
-            target="_blank"
+            target="_self"
             rel="noopener noreferrer"
           >
             <ExternalLink size={14} />
@@ -47,7 +47,7 @@ function ProjectCard({ project, large = false }) {
           <a
             href={project.githubUrl}
             className="flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-            target="_blank"
+            target="_self"
             rel="noopener noreferrer"
           >
             <GitHubIcon size={14} />
