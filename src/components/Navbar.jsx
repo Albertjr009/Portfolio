@@ -7,6 +7,20 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
+  const scrollToSection = (event, href) => {
+    event.preventDefault()
+
+    if (href === "#") {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+      setIsOpen(false)
+      return
+    }
+
+    const section = document.querySelector(href)
+    section?.scrollIntoView({ behavior: "smooth", block: "start" })
+    setIsOpen(false)
+  }
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener("scroll", handleScroll)
@@ -22,7 +36,11 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#" className="font-display text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+        <a
+          href="#"
+          onClick={(event) => scrollToSection(event, "#")}
+          className="font-display text-lg font-bold tracking-tight text-gray-900 dark:text-white"
+        >
           {personalInfo.name.split(" ")[0]}
           <span className="text-emerald-600 dark:text-emerald-400">.</span>
         </a>
@@ -32,6 +50,7 @@ export default function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
+                onClick={(event) => scrollToSection(event, link.href)}
                 className="text-sm font-medium text-gray-600 transition-colors hover:text-emerald-600 dark:text-gray-400 dark:hover:text-emerald-400"
               >
                 {link.label}
@@ -44,6 +63,7 @@ export default function Navbar() {
           <li>
             <a
               href="#contact"
+              onClick={(event) => scrollToSection(event, "#contact")}
               className="rounded-full bg-emerald-500 px-5 py-2 text-sm font-semibold text-gray-950 transition-all hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/25"
             >
               Hire Me
@@ -71,7 +91,7 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(event) => scrollToSection(event, link.href)}
                   className="block rounded-lg px-3 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-emerald-600 dark:text-gray-300 dark:hover:bg-white/5 dark:hover:text-emerald-400"
                 >
                   {link.label}
@@ -81,7 +101,7 @@ export default function Navbar() {
             <li className="pt-2">
               <a
                 href="#contact"
-                onClick={() => setIsOpen(false)}
+                onClick={(event) => scrollToSection(event, "#contact")}
                 className="block rounded-full bg-emerald-500 px-5 py-3 text-center text-sm font-semibold text-gray-950"
               >
                 Hire Me

@@ -2,6 +2,11 @@ import { ArrowDown, Download, Mail } from "lucide-react"
 import { personalInfo } from "../data/portfolio"
 
 export default function Hero() {
+  const scrollToSection = (event, id) => {
+    event.preventDefault()
+    document.querySelector(id)?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
+
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-24 mesh-bg">
       <div className="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl" />
@@ -48,12 +53,14 @@ export default function Hero() {
         >
           <a
             href="#projects"
+            onClick={(event) => scrollToSection(event, "#projects")}
             className="rounded-full bg-emerald-500 px-8 py-3.5 text-sm font-semibold text-gray-950 transition-all hover:bg-emerald-400 hover:shadow-xl hover:shadow-emerald-500/30"
           >
             View My Work
           </a>
           <a
             href="#contact"
+            onClick={(event) => scrollToSection(event, "#contact")}
             className="flex items-center gap-2 rounded-full border border-gray-200 bg-white/80 px-8 py-3.5 text-sm font-semibold text-gray-900 backdrop-blur-sm transition-all hover:border-emerald-500/50 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
           >
             <Mail size={16} />
@@ -86,6 +93,7 @@ export default function Hero() {
 
       <a
         href="#about"
+        onClick={(event) => scrollToSection(event, "#about")}
         className="animate-float absolute bottom-10 left-1/2 -translate-x-1/2 text-gray-400 transition-colors hover:text-emerald-600 dark:text-gray-600 dark:hover:text-emerald-400"
         aria-label="Scroll to about section"
       >
