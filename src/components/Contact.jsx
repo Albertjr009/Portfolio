@@ -3,6 +3,7 @@ import { Mail, MapPin, Send } from "lucide-react"
 import { GitHubIcon, LinkedInIcon, TwitterIcon } from "./SocialIcons"
 import { personalInfo, socialLinks } from "../data/portfolio"
 import SectionHeading from "./SectionHeading"
+import { Fades, Magnetic, Slide } from "./animate-ui/Effects"
 
 const iconMap = {
   github: GitHubIcon,
@@ -82,13 +83,13 @@ export default function Contact() {
         />
 
         <div className="mt-16 grid gap-12 lg:grid-cols-5">
-          <div className="lg:col-span-2">
+          <Slide className="lg:col-span-2" direction="left">
             <p className="text-gray-600 dark:text-gray-400">
               Whether you&apos;re hiring for a full-time role or need a developer for
-              a project, reach out — I typically respond within 24 hours.
+              a project, reach out - I typically respond within 24 hours.
             </p>
 
-            <div className="mt-8 space-y-4">
+            <Fades className="mt-8 space-y-4" holdDelay={0.08}>
               <a
                 href={`mailto:${personalInfo.email}`}
                 className="flex items-center gap-3 text-gray-700 transition-colors hover:text-emerald-600 dark:text-gray-300 dark:hover:text-emerald-400"
@@ -104,7 +105,7 @@ export default function Contact() {
                 </span>
                 {personalInfo.location}
               </p>
-            </div>
+            </Fades>
 
             <div className="mt-10">
               <p className="text-sm font-medium text-gray-500">Find me online</p>
@@ -112,103 +113,106 @@ export default function Contact() {
                 {socialLinks.map((link) => {
                   const Icon = iconMap[link.icon]
                   return (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={link.label}
-                      className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-gray-100 text-gray-600 transition-all hover:border-emerald-500/50 hover:text-emerald-600 dark:border-white/10 dark:bg-white/5 dark:text-gray-400 dark:hover:text-emerald-400"
-                    >
-                      <Icon size={18} />
-                    </a>
+                    <Magnetic key={link.label}>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={link.label}
+                        className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-gray-100 text-gray-600 transition-all hover:border-emerald-500/50 hover:text-emerald-600 dark:border-white/10 dark:bg-white/5 dark:text-gray-400 dark:hover:text-emerald-400"
+                      >
+                        <Icon size={18} />
+                      </a>
+                    </Magnetic>
                   )
                 })}
               </div>
             </div>
-          </div>
+          </Slide>
 
-          <form
-            onSubmit={handleSubmit}
-            className="lg:col-span-3 rounded-2xl border border-gray-200 bg-white/80 p-8 shadow-sm backdrop-blur-sm dark:border-white/5 dark:bg-gray-900/40 dark:shadow-none"
-          >
-            <div className="grid gap-6 sm:grid-cols-2">
-              <div>
-                <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Name
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Your name"
-                  value={formState.name}
-                  onChange={(e) =>
-                    setFormState({ ...formState, name: e.target.value })
-                  }
-                  required
-                  className={inputClassName}
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="you@company.com"
-                  value={formState.email}
-                  onChange={(e) =>
-                    setFormState({ ...formState, email: e.target.value })
-                  }
-                  required
-                  className={inputClassName}
-                />
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <label htmlFor="message" className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                placeholder="Tell me about the role or project..."
-                value={formState.message}
-                onChange={(e) =>
-                  setFormState({ ...formState, message: e.target.value })
-                }
-                required
-                className={`${inputClassName} resize-none`}
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={sending}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 py-3.5 text-sm font-semibold text-gray-950 transition-all hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/25 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:px-8"
+          <Slide className="lg:col-span-3" direction="right" delay={0.08}>
+            <form
+              onSubmit={handleSubmit}
+              className="rounded-2xl border border-gray-200 bg-white/80 p-8 shadow-sm backdrop-blur-sm dark:border-white/5 dark:bg-gray-900/40 dark:shadow-none"
             >
-              <Send size={16} />
-              {sending ? "Sending..." : submitted ? "Message Sent!" : "Send Message"}
-            </button>
-            {status === "success" && (
-              <p className="mt-4 text-sm text-emerald-600">Thanks — your message is on its way.</p>
-            )}
-            {status === "error" && (
-              <p className="mt-4 text-sm text-rose-600">
-                Something went wrong. Please try again or email me directly at {personalInfo.email}.
-              </p>
-            )}
-            {status === "missing-config" && (
-              <p className="mt-4 text-sm text-rose-600">
-                Formspree is not configured yet. Add your Formspree endpoint to the site settings.
-              </p>
-            )}
-          </form>
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="name" className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Name
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Your name"
+                    value={formState.name}
+                    onChange={(e) =>
+                      setFormState({ ...formState, name: e.target.value })
+                    }
+                    required
+                    className={inputClassName}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="you@company.com"
+                    value={formState.email}
+                    onChange={(e) =>
+                      setFormState({ ...formState, email: e.target.value })
+                    }
+                    required
+                    className={inputClassName}
+                  />
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <label htmlFor="message" className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  placeholder="Tell me about the role or project..."
+                  value={formState.message}
+                  onChange={(e) =>
+                    setFormState({ ...formState, message: e.target.value })
+                  }
+                  required
+                  className={`${inputClassName} resize-none`}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={sending}
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 py-3.5 text-sm font-semibold text-gray-950 transition-all hover:bg-emerald-400 hover:shadow-lg hover:shadow-emerald-500/25 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:px-8"
+              >
+                <Send size={16} />
+                {sending ? "Sending..." : submitted ? "Message Sent!" : "Send Message"}
+              </button>
+              {status === "success" && (
+                <p className="mt-4 text-sm text-emerald-600">Thanks - your message is on its way.</p>
+              )}
+              {status === "error" && (
+                <p className="mt-4 text-sm text-rose-600">
+                  Something went wrong. Please try again or email me directly at {personalInfo.email}.
+                </p>
+              )}
+              {status === "missing-config" && (
+                <p className="mt-4 text-sm text-rose-600">
+                  Formspree is not configured yet. Add your Formspree endpoint to the site settings.
+                </p>
+              )}
+            </form>
+          </Slide>
         </div>
       </div>
     </section>
