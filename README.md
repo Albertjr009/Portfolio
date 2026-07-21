@@ -1,6 +1,6 @@
 Albert Jnr — Frontend Developer Portfolio
 
-Hi — I'm Albert. Welcome to my portfolio.
+Hi, I'm Albert. Welcome to my portfolio.
 
 This site is where I show the web work I enjoy doing: small apps, thoughtful UI details, and projects that solve real problems. I build interfaces that are clear, accessible, and easy to iterate on — the kind you can hand to a teammate or ship to users without a fuss.
 
