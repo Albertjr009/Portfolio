@@ -1,6 +1,7 @@
 import { Briefcase } from "lucide-react"
 import { experience } from "../data/portfolio"
 import SectionHeading from "./SectionHeading"
+import { Slides } from "./animate-ui/Effects"
 
 export default function Experience() {
   return (
@@ -15,7 +16,7 @@ export default function Experience() {
         <div className="relative mt-16">
           <div className="absolute left-8 top-0 hidden h-full w-px bg-gradient-to-b from-emerald-500/50 via-emerald-500/20 to-transparent md:block" />
 
-          <div className="space-y-12">
+          <Slides className="space-y-12" direction="right" offset={30} holdDelay={0.08}>
             {experience.map((job) => (
               <div key={job.company} className="relative flex gap-8 md:pl-16">
                 <div className="absolute left-6 top-1 hidden h-4 w-4 -translate-x-1/2 rounded-full border-2 border-emerald-500 bg-white dark:bg-gray-950 md:block" />
@@ -38,7 +39,7 @@ export default function Experience() {
                 </div>
               </div>
             ))}
-          </div>
+          </Slides>
         </div>
       </div>
     </section>
