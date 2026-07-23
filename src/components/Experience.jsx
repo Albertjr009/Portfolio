@@ -10,7 +10,6 @@ export default function Experience() {
         <SectionHeading
           label="Experience"
           title="Where I've worked"
-          subtitle="National service experience supporting cocoa health and extension programs."
         />
 
         <div className="relative mt-16">
